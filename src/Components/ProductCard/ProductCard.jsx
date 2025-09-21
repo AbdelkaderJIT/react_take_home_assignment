@@ -23,7 +23,7 @@ const ExpandMore = styled((props) => {
   transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest,
   }),
-  transform: expand ? 'rotate(180deg)' : 'rotate(0deg)',
+  transform: expand ? 'rotate(0deg)' : 'rotate(0deg)',
 }));
 
 export default function ProductCard({ title, description, price, image }) {
@@ -58,7 +58,7 @@ export default function ProductCard({ title, description, price, image }) {
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        
+
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -66,6 +66,9 @@ export default function ProductCard({ title, description, price, image }) {
           aria-label="show more"
         >
           <ExpandMoreIcon />
+          <Typography>
+            Details
+          </Typography>
         </ExpandMore>
       </CardActions>
       

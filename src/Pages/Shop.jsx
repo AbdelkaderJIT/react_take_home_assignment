@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import ProductCard from '../Components/ProductCard/ProductCard'
+import Filter from '../Components/Filter/Filter'
 import Pagination from '@mui/material/Pagination'
 
 const ITEMS_PER_PAGE = 8
@@ -7,11 +8,18 @@ const ITEMS_PER_PAGE = 8
 const Shop = () => {
   const [shop, setShop] = React.useState([])
   const [page, setPage] = React.useState(1)
+  const [category, setCategory] = React.useState('all')
+  const [categories, setCategories] = React.useState([])
+
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then(res => res.json())
-      .then(json => setShop(json))
+      .then(json => {
+        setShop(json)
+        const uniqueCategories = [...new Set(json.map(item => item.category))]
+        setCategories(uniqueCategories)
+      })
       .catch(err => console.log(err))
   }, [])
 
@@ -19,14 +27,30 @@ const Shop = () => {
     setPage(value)
   }
 
+  const handleCategoryChange = (event) => {
+  setCategory(event.target.value)
+  setPage(1)
+}
+
+  // Filter products by selected category
+  const filteredShop = category === 'all'
+    ? shop
+    : shop.filter(item => item.category === category)
+
   // Pagination logic
   const startIndex = (page - 1) * ITEMS_PER_PAGE
   const endIndex = startIndex + ITEMS_PER_PAGE
-  const paginatedShop = shop.slice(startIndex, endIndex)
-  const pageCount = Math.ceil(shop.length / ITEMS_PER_PAGE)
+  const paginatedShop = filteredShop.slice(startIndex, endIndex)
+  const pageCount = Math.ceil(filteredShop.length / ITEMS_PER_PAGE)
+
+  
 
   return (
     <div>
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+        <Filter categories={categories} value={category} onChange={handleCategoryChange} />
+      </div>
+
       <div className='shop' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {paginatedShop.map(item => (
           <ProductCard

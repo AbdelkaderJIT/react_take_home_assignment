@@ -5,12 +5,11 @@ import Pagination from '@mui/material/Pagination'
 
 const ITEMS_PER_PAGE = 8
 
-const Shop = () => {
+const Shop = ({ favourites, onFavourite }) => {
   const [shop, setShop] = React.useState([])
   const [page, setPage] = React.useState(1)
   const [category, setCategory] = React.useState('all')
   const [categories, setCategories] = React.useState([])
-
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -23,14 +22,14 @@ const Shop = () => {
       .catch(err => console.log(err))
   }, [])
 
-  const handleChange = (event, value) => {
+  const handlePaginationChange = (event, value) => {
     setPage(value)
   }
 
   const handleCategoryChange = (event) => {
-  setCategory(event.target.value)
-  setPage(1)
-}
+    setCategory(event.target.value)
+    setPage(1)
+  }
 
   // Filter products by selected category
   const filteredShop = category === 'all'
@@ -43,8 +42,6 @@ const Shop = () => {
   const paginatedShop = filteredShop.slice(startIndex, endIndex)
   const pageCount = Math.ceil(filteredShop.length / ITEMS_PER_PAGE)
 
-  
-
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
@@ -55,15 +52,18 @@ const Shop = () => {
         {paginatedShop.map(item => (
           <ProductCard
             key={item.id}
+            id={item.id}
             title={item.title}
             description={item.description}
             price={item.price}
             image={item.image}
+            isFavourite={favourites.includes(item.id)}
+            onFavourite={onFavourite}
           />
         ))}
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
-        <Pagination count={pageCount} page={page} onChange={handleChange} color="primary" />
+        <Pagination count={pageCount} page={page} onChange={handlePaginationChange} color="primary" />
       </div>
     </div>
   )

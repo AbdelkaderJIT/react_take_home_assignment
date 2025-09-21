@@ -14,6 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,7 +27,7 @@ const ExpandMore = styled((props) => {
   transform: expand ? 'rotate(0deg)' : 'rotate(0deg)',
 }));
 
-export default function ProductCard({ title, description, price, image }) {
+export default function ProductCard({ title, description, price, image, isFavourite, onFavourite, id }) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -55,8 +56,8 @@ export default function ProductCard({ title, description, price, image }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+         <IconButton aria-label="add to favorites" onClick={() => onFavourite(id)}>
+          {isFavourite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
         </IconButton>
 
         <ExpandMore

@@ -3,6 +3,7 @@ import ProductCard from '../Components/ProductCard/ProductCard'
 import Filter from '../Components/Filter/Filter'
 import Pagination from '@mui/material/Pagination'
 import SortPrice from '../Components/Sort/SortPrice'
+import Grid from '@mui/material/Grid'
 
 const ITEMS_PER_PAGE = 8
 
@@ -64,8 +65,9 @@ if (sortOrder === 'asc') {
          <SortPrice value={sortOrder} onChange={handleSortChange} />
       </div>
 
-      <div className='shop' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <Grid container spacing={3} justifyContent="center">
         {paginatedShop.map(item => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
           <ProductCard
             key={item.id}
             id={item.id}
@@ -76,8 +78,9 @@ if (sortOrder === 'asc') {
             isFavourite={favourites.includes(item.id)}
             onFavourite={onFavourite}
           />
+          </Grid>
         ))}
-      </div>
+      </Grid>
       <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
         <Pagination count={pageCount} page={page} onChange={handlePaginationChange} color="primary" />
       </div>

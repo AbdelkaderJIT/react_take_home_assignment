@@ -35,11 +35,21 @@ export default function ProductCard({ title, description, price, image, isFavour
   };
 
   return (
-    <Card sx={{ maxWidth: 350,   minWidth: 350, minHeight: 450, margin: 2 }}>
+    <Card sx={{ maxWidth: 350,   minWidth: 350, minHeight: 450, maxHeight: 450 , margin: 2 }}>
       <CardHeader
         
         title={
-            <Typography variant="h6" sx={{ fontSize: '1.1rem' , maxHeight: '4rem', minHeight: '4rem', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+           <Typography
+      variant="h6"
+      sx={{
+        fontSize: '1.1rem',
+        whiteSpace: 'normal',      // Allow wrapping
+        overflow: 'visible',       // Show all text
+        textOverflow: 'unset',     // No ellipsis
+        minHeight: 'unset',
+        maxHeight: 'unset'
+      }}
+    >
       {title}
     </Typography>
     }
@@ -47,9 +57,9 @@ export default function ProductCard({ title, description, price, image, isFavour
       />
       <CardMedia
         component="img"
-        height="350"
-        image={image}
-        alt={title}
+  image={image}
+  alt={title}
+  sx={{ objectFit: 'contain', maxHeight: 200, width: '100%' }}
       />
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>

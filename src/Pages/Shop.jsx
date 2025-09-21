@@ -4,6 +4,10 @@ import Filter from '../Components/Filter/Filter'
 import Pagination from '@mui/material/Pagination'
 import SortPrice from '../Components/Sort/SortPrice'
 import Grid from '@mui/material/Grid'
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
+
 
 const ITEMS_PER_PAGE = 8
 
@@ -13,6 +17,7 @@ const Shop = ({ favourites, onFavourite }) => {
   const [category, setCategory] = React.useState('all')
   const [categories, setCategories] = React.useState([])
   const [sortOrder, setSortOrder] = React.useState('none');
+  const [search, setSearch] = React.useState('');
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -38,13 +43,22 @@ const Shop = ({ favourites, onFavourite }) => {
     setPage(1)
   }
 
-  // Filter products by selected category
-  const filteredShop = category === 'all'
-    ? shop
-    : shop.filter(item => item.category === category)
+  const handleSearchChange = (event) => {
+  setSearch(event.target.value);
+};
 
-  // Sort products by price
-  let sortedShop = [...filteredShop];
+
+  const filteredShop = shop.filter(item =>
+    item.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  
+const categoryFilteredShop = category === 'all'
+    ? filteredShop
+    : filteredShop.filter(item => item.category === category);
+
+  
+  let sortedShop = [...categoryFilteredShop];
 if (sortOrder === 'asc') {
   sortedShop.sort((a, b) => a.price - b.price);
 } else if (sortOrder === 'desc') {
@@ -52,7 +66,7 @@ if (sortOrder === 'asc') {
 }
   
 
-  // Pagination logic
+  
   const startIndex = (page - 1) * ITEMS_PER_PAGE
   const endIndex = startIndex + ITEMS_PER_PAGE
   const paginatedShop = sortedShop.slice(startIndex, endIndex);
@@ -61,8 +75,23 @@ if (sortOrder === 'asc') {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0', padding: '0 1rem', gap: '1rem', flexWrap: 'wrap' }}>
+        
         <Filter categories={categories} value={category} onChange={handleCategoryChange} />
-         <SortPrice value={sortOrder} onChange={handleSortChange} />
+        <SortPrice value={sortOrder} onChange={handleSortChange} />
+        <TextField
+          variant="outlined"
+          placeholder="Search..."
+          value={search}
+          onChange={handleSearchChange}
+          sx={{ width: '300px' }}
+          InputProps={{
+             startAdornment: (
+             <InputAdornment position="start">
+               <SearchIcon />
+             </InputAdornment>
+    ),
+  }}
+        />
       </div>
 
       <Grid container spacing={3} justifyContent="center">

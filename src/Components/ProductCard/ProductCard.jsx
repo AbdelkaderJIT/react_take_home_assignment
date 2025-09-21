@@ -6,14 +6,10 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const ExpandMore = styled((props) => {
@@ -35,10 +31,18 @@ export default function ProductCard({ title, description, price, image, isFavour
   };
 
   return (
-    <Card sx={{ maxWidth: 350,   minWidth: 350, minHeight: 450, maxHeight: 450 , margin: 2 }}>
+    <Card sx={{
+       maxWidth: 350,  
+        minWidth: 350, 
+        minHeight: 450, 
+ 
+        margin: 2, 
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between' }}>
       <CardHeader
         
-        title={
+       title={
            <Typography
       variant="h6"
       sx={{
@@ -90,11 +94,11 @@ export default function ProductCard({ title, description, price, image, isFavour
           </Typography>
         </CardContent>
       </Collapse>
-      <CardContent>
-          <Typography>
-            Price: ${price}
-          </Typography>
-        </CardContent>
+      <CardContent sx={{ mt: 'auto' }}>
+        <Typography variant="h6" sx={{ fontWeight: 700 }}>
+          Price: ${price}
+        </Typography>
+       </CardContent>
     </Card>
   );
 }

@@ -36,7 +36,7 @@ function Navbar() {
           
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', mr: 2 }}>
             <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-              <img src={logo} alt="logo" style={{ height: 40, marginRight: 8 }} />
+              <img src={logo} alt="logo" style={{ height: 50, marginRight: 8 }} />
               <Typography variant="h6" noWrap sx={{ fontWeight: 700, letterSpacing: '.1rem' }}>
                 Product Catalog
               </Typography>

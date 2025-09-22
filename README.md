@@ -68,11 +68,12 @@ npm start
 ## Future Improvements
 - Add product detail page
 - Add cart functionality
-- Add Login and SSO features
+- Add authentification and SSO features
 - Add payement methods
 - Add Typescript to migrate all components for stronger type safety.
-- Add Redux for more scalable state management.
+- Add Redux or zustand for more scalable state management.
 - Add user-friendly error messages and loading indicators.
+- Add Admin dashboard to manage products.
 
 ## License 
 This project is for technical test purposes only.

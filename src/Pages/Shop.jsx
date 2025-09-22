@@ -59,14 +59,12 @@ const categoryFilteredShop = category === 'all'
 
   
   let sortedShop = [...categoryFilteredShop];
-if (sortOrder === 'asc') {
+  if (sortOrder === 'asc') {
   sortedShop.sort((a, b) => a.price - b.price);
-} else if (sortOrder === 'desc') {
-  sortedShop.sort((a, b) => b.price - a.price);
-}
-  
+  } else if (sortOrder === 'desc') {
+    sortedShop.sort((a, b) => b.price - a.price);
+  }
 
-  
   const startIndex = (page - 1) * ITEMS_PER_PAGE
   const endIndex = startIndex + ITEMS_PER_PAGE
   const paginatedShop = sortedShop.slice(startIndex, endIndex);

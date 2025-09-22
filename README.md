@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# My Shop - Product Catalog – React.js (Frontend Only)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+This project is a React.js frontend application that displays a catalog of products (Clothes, Jewelry, Electronics).  
+Users can **browse, sort, filter, and paginate** through the product catalog.  
+The application consumes data from an **external API** and does not include any backend logic.  
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
+- **Product listing** with images, titles, descriptions, and prices  
+- **Filtering** by category (Clothes, Jewelry, Electronics)  
+- **Sorting** by price (ascending & descending)  
+- **Responsive design** for desktop and mobile  
+- **Pagination** to navigate through products  
+- **Unit tests** included for core components and logic  
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Design Decisions
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Material UI** is used for a modern, responsive UI and consistent styling.
+- **React Router** enables navigation between Shop and Favourite Products pages.
+- **State Management:** Favourites are managed in the top-level `App.js` and passed as props for easy sharing between pages.
+- **ProductCard Layout:** Cards use flexbox to keep price and details aligned at the bottom, ensuring a uniform grid.
+- **Filtering & Sorting:** Category filter, price sort, and search bar are implemented as reusable components for modularity.
+- **Pagination:** Products are paginated for performance and usability.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## API
+The application fetches product data from:  
+ **[Fake Store API](https://fakestoreapi.com/products)**  
 
-### `npm run build`
+## Tech Stack
+- React.js (Frontend framework)
+- React Hooks (useState, useEffect)
+- CSS /Material UI ^7.3.2
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Fake Store API for product data
+- React Testing Library for unit tests
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Installation & Setup
+Clone the repository and install dependencies:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Clone repo
+git clone https://github.com/AbdelkaderJIT/react_take_home_assignment.git
 
-### `npm run eject`
+# Go inside project folder
+cd react_take_home_assignment
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Install dependencies
+npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Start development server
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Project Structure
+├── public/              # Static files
+├── src/
+│   ├── components/      # UI components (ProductCard, Filter, SortControls, Pagination)
+│   ├── pages/           # Pages (Shop, ProductList, etc.)
+│   ├── App.js           # Main app entry
+│   ├── index.js         # React DOM entry
+│   └── App.test.js      # Unit test entry
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Future Improvements
+- Add product detail page
+- Add cart functionality
+- Add Login and SSO features
+- Add payement methods
+- Add Typescript to migrate all components for stronger type safety.
+- Add Redux for more scalable state management.
+- Add user-friendly error messages and loading indicators.
 
-## Learn More
+## License 
+This project is for technical test purposes only.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Thank you, feel free to reach out if you have any questions or feedback!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

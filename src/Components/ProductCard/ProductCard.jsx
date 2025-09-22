@@ -34,7 +34,7 @@ export default function ProductCard({ title, description, price, image, isFavour
     <Card sx={{
        maxWidth: 350,  
         minWidth: 350, 
-        minHeight: 450, 
+        minHeight: 470, 
  
         margin: 2, 
         display: 'flex',

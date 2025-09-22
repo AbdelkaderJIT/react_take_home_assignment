@@ -34,7 +34,7 @@ const Shop = ({ favourites, onFavourite }) => {
       })
       .catch(err => console.log(err));
 
-    const timer = new Promise(resolve => setTimeout(resolve, 2000));
+    const timer = new Promise(resolve => setTimeout(resolve, 1000));
 
     
     Promise.all([fetchData, timer])

@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const ITEMS_PER_PAGE = 8
@@ -18,16 +19,28 @@ const Shop = ({ favourites, onFavourite }) => {
   const [categories, setCategories] = React.useState([])
   const [sortOrder, setSortOrder] = React.useState('none');
   const [search, setSearch] = React.useState('');
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
+    setLoading(true);
+    
+    
+    const fetchData = fetch("https://fakestoreapi.com/products")
       .then(res => res.json())
       .then(json => {
         setShop(json)
         const uniqueCategories = [...new Set(json.map(item => item.category))]
         setCategories(uniqueCategories)
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
+
+    const timer = new Promise(resolve => setTimeout(resolve, 2000));
+
+    
+    Promise.all([fetchData, timer])
+      .then(() => {
+        setLoading(false);
+      });
   }, [])
 
   const handleSortChange = (event) => {
@@ -74,42 +87,49 @@ if (sortOrder === 'asc') {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0', padding: '0 1rem', gap: '1rem', flexWrap: 'wrap' }}>
-        
-        <Filter categories={categories} value={category} onChange={handleCategoryChange} />
-        <SortPrice value={sortOrder} onChange={handleSortChange} />
-        <TextField
-          variant="outlined"
-          placeholder="Search..."
-          value={search}
-          onChange={handleSearchChange}
-          sx={{ width: '300px' }}
-          InputProps={{
-             startAdornment: (
-             <InputAdornment position="start">
-               <SearchIcon />
-             </InputAdornment>
-    ),
-  }}
-        />
-      </div>
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+          <CircularProgress />
+        </div>
+      ) : (
+        <>
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0', padding: '0 1rem', gap: '1rem', flexWrap: 'wrap' }}>
+            <Filter categories={categories} value={category} onChange={handleCategoryChange} />
+            <SortPrice value={sortOrder} onChange={handleSortChange} />
+            <TextField
+              variant="outlined"
+              placeholder="Search..."
+              value={search}
+              onChange={handleSearchChange}
+              sx={{ width: '300px' }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
 
-      <Grid container spacing={3} justifyContent="center">
-        {paginatedShop.map(item => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
-          <ProductCard
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            description={item.description}
-            price={item.price}
-            image={item.image}
-            isFavourite={favourites.includes(item.id)}
-            onFavourite={onFavourite}
-          />
+          <Grid container spacing={3} justifyContent="center">
+            {paginatedShop.map(item => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
+                <ProductCard
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  description={item.description}
+                  price={item.price}
+                  image={item.image}
+                  isFavourite={favourites.includes(item.id)}
+                  onFavourite={onFavourite}
+                />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
+        </>
+      )}
       <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
         <Pagination count={pageCount} page={page} onChange={handlePaginationChange} color="primary" />
       </div>
